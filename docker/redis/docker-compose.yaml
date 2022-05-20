@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  redis:
+    container_name: "redis-one7"
+    image: redis:alpine
+    command: redis-server /usr/loca/etc/redis/redis.conf --requirepass one7redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - $PWD/redis.conf:/usr/loca/etc/redis/redis.conf
