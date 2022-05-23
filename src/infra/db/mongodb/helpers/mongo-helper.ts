@@ -22,8 +22,9 @@ export const MongoHelper = {
   map: (data: any): any => {
     console.log(data)
     const { _id, ...rest } = data
-    return { ...rest, 
-    itemId: _id.toHexString() 
+    return {
+      itemId: _id.toHexString(),
+      ...rest
     }
   }
 }
