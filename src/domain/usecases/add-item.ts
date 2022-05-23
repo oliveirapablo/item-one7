@@ -5,7 +5,7 @@ export interface AddItemModel {
   description?: string
   category?: string
   quantity: number
-  unitaryValue: string
+  unitaryValue: number
   // lastUpdate: Date
 }
 
