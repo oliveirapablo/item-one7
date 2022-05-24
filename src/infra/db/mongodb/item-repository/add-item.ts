@@ -29,7 +29,7 @@ export class ItemMongoRepository implements AddItemRepository {
       _id: new ObjectId(itemData.itemId)
     }, {
       $set: {
-        itemData,
+        ...itemData,
         lastUpdate
       }
     })

@@ -1,6 +1,7 @@
 import { ItemModel, AddItemModel, AddItemRepository, ItemInMemoryRepository } from './db-add-item-protocols'
 import { DbAddItem } from './db-add-item'
 import { RedisHelper } from '../../../infra/db/redis/helpers/redis-helper'
+import { GetItemModel } from '../get-item/db-get-item-protocols'
 
 const makeFakeItem = (): ItemModel => ({
   itemId: 'valid_itemId',
@@ -24,6 +25,14 @@ const makeFakeItemData = (): AddItemModel => ({
 const makeAddItemRepository = (): AddItemRepository => {
   class AddItemRepositoryStub implements AddItemRepository {
     async add (itemData: AddItemModel): Promise<ItemModel> {
+      return await new Promise(resolve => resolve(makeFakeItem()))
+    }
+
+    async findById (itemData: GetItemModel): Promise<ItemModel> {
+      return await new Promise(resolve => resolve(makeFakeItem()))
+    }
+
+    async update (itemData: AddItemModel): Promise<ItemModel> {
       return await new Promise(resolve => resolve(makeFakeItem()))
     }
   }
