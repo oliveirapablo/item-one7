@@ -22,8 +22,7 @@ const makeFakeItem = (): ItemModel => ({
   description: 'valid_description',
   category: 'valid_category',
   quantity: 999,
-  unitaryValue: 9.15,
-  lastUpdate: new Date(),
+  unitaryValue: 9.15
 })
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -91,41 +90,9 @@ describe('AddItemController', () => {
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('unitaryValue')))
   })
-
-  // test('Should return 400 if type is not permited to provided', async () => {
-  //   const { sut } = makeSut()
-
-  //   const httpRequest = {
-  //     body: {
-  //       user_id: 'any_user_id',
-  //       type: 'any_type',
-  //       amount: 'any_amount'
-  //     }
-  //   }
-  //   const httpResponse = await sut.handle(httpRequest)
-  //   expect(httpResponse).toEqual(badRequest(new InvalidParamError('type')))
-  // })
-
-  // test('Should call AddItem with correct values', async () => {
-  //   const { sut, addItemStub } = makeSut()
-  //   const addSpy = jest.spyOn(addItemStub, 'add')
-
-  //   await sut.handle(makeFakeRequest())
-  //   expect(addSpy).toHaveBeenCalledWith(makeFakeRequest().body)
-  // })
-
-  // test('Should return 500 if AddItem throws', async () => {
-  //   const { sut, addItemStub } = makeSut()
-  //   jest.spyOn(addItemStub, 'add').mockImplementationOnce(async () => {
-  //     return await new Promise((resolve, reject) => reject(new Error()))
-  //   })
-
-  //   const httResponse = await sut.handle(makeFakeRequest())
-  //   expect(httResponse).toEqual(serverError())
-  // })
-  // test('Should return 200 if valid data is provided', async () => {
-  //   const { sut } = makeSut()
-  //   const httResponse = await sut.handle(makeFakeRequest())
-  //   expect(httResponse).toEqual(ok(makeFakeItem()))
-  // })
+   test('Should return 200 if valid data is provided', async () => {
+    const { sut } = makeSut()
+    const httResponse = await sut.handle(makeFakeRequest())
+    expect(httResponse).toEqual(ok(makeFakeItem()))
+  })
 })

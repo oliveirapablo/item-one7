@@ -5,13 +5,9 @@ export interface ItemModel {
   category?: string
   quantity: number
   unitaryValue: number
-  lastUpdate: Date
+  lastUpdate?: Date
 }
 
 export interface ItemsModel {
   items: ItemsModel[]
-}
-
-export interface BalanceItemsModel {
-  amount: number
 }
