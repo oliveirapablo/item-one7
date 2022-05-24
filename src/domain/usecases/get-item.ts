@@ -5,5 +5,5 @@ export interface GetItemModel {
 }
 
 export interface GetItem {
-  find(item: GetItemModel): Promise<ItemModel>
+  findById(item: GetItemModel): Promise<ItemModel>
 }

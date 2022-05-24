@@ -38,4 +38,20 @@ describe('Item Mongo Repository', () => {
     expect(item.quantity).toBe(99)
     expect(item.unitaryValue).toBe(80.99)
   })
+
+  // test('Shoul return an item on success findById', async () => {
+  //   const sut = makeSut()
+  //   const item = await sut.findById({
+  //     itemId: 'valid_itemId',
+  //  })
+    
+  //   expect(item.lastUpdate).toBeTruthy()
+  //   expect(item).toBeTruthy()
+  //   expect(item.itemId).toBeTruthy()
+  //   expect(item.name).toBe('valid_name')
+  //   expect(item.description).toBe('valid_description')
+  //   expect(item.category).toBe('valid_category')
+  //   expect(item.quantity).toBe(99)
+  //   expect(item.unitaryValue).toBe(80.99)
+  // })
 })

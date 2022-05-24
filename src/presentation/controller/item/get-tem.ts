@@ -19,7 +19,7 @@ export class GetItemController implements Controller {
       const {
         itemId } = httpRequest.params
 
-      const item = await this.getItem.find({
+      const item = await this.getItem.findById({
         itemId
       })
       return ok(item)

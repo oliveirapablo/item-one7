@@ -11,3 +11,13 @@ export interface ItemModel {
 export interface ItemsModel {
   items: ItemsModel[]
 }
+
+export interface ItemsModel {
+  itemId: string
+  name: string
+  description?: string
+  category?: string
+  quantity: number
+  unitaryValue: number
+  lastUpdate?: Date
+}

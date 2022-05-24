@@ -20,11 +20,14 @@ export const MongoHelper = {
     return this.client.db().collection(name)
   },
   map: (data: any): any => {
-    console.log(data)
     const { _id, ...rest } = data
     return {
       itemId: _id.toHexString(),
       ...rest
     }
+  },
+
+  mapCollection: (collection: any[]): any[] => {
+    return collection.map(c => MongoHelper.map(c))
   }
 }

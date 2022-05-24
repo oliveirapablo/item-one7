@@ -4,7 +4,7 @@ import { GetItem, GetItemModel, HttpRequest, ItemModel } from './item-protocols'
 import { ok, serverError, badRequest } from '../../helpers/http-helper'
 const makeGetItem = (): GetItem => {
   class GetItemStub implements GetItem {
-    async find (item: GetItemModel): Promise<ItemModel> {
+    async findById (item: GetItemModel): Promise<ItemModel> {
       return await new Promise(resolve => resolve(makeFakeItem()))
     }
   }
