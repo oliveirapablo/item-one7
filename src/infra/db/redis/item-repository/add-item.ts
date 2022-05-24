@@ -12,4 +12,8 @@ export class ItemRedisRepository implements ItemInMemoryRepository {
     const itemInCache = RedisHelper.getInMemory(`itemId:${itemId}`)
     return itemInCache
   }
+
+  async delete (itemId: string): Promise<void> {
+    await RedisHelper.deleteInMemory(`itemId:${itemId}`);
+  }
 }

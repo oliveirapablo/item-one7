@@ -8,7 +8,7 @@ export const RedisHelper = {
     this.client = createClient({
       password 
     })
-    await this.client.connect();
+    await this.client.connect()
   },
 
   async disconnect () {
@@ -23,5 +23,9 @@ export const RedisHelper = {
     const result = await this.client.get(key)
     const parsedResult = JSON.parse(result)
     return parsedResult
+  },
+
+  async deleteInMemory (key: string) {
+    await this.client.del(key)
   }
 }

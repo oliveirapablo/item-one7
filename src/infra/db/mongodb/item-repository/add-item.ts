@@ -1,5 +1,5 @@
 import { AddItemRepository } from '../../../../data/protocols/add-item-repository'
-import { AddItemModel, GetItemModel, ItemModel, ItemsModel } from '../../../../presentation/protocols'
+import { AddItemModel, GetItemModel, ItemModel, ItemsModel, DeleteItemModel } from '../../../../presentation/protocols'
 import { MongoHelper } from '../helpers/mongo-helper'
 import { ObjectId } from 'mongodb'
 
@@ -41,5 +41,12 @@ export class ItemMongoRepository implements AddItemRepository {
     const itemsCollection = await MongoHelper.getCollection('items')
     const items = (await itemsCollection.find({}).toArray()) as unknown as ItemsModel[];
     return MongoHelper.mapCollection(items)
+  }
+
+  async delete (itemData: DeleteItemModel): Promise<void> {
+    const itemsCollection = await MongoHelper.getCollection('items')
+    await itemsCollection.deleteOne({
+      _id: new ObjectId(itemData.itemId)
+    })
   }
 }

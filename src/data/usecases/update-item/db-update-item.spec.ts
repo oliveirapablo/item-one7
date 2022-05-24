@@ -38,6 +38,9 @@ const makeItemInMemoryRepository = (): ItemInMemoryRepository => {
     async find(itemId: string): Promise<ItemModel> {
       return makeFakeItem()
     }
+    async delete (itemId: string): Promise<void> {
+      jest.spyOn(RedisHelper, 'deleteInMemory').mockImplementation()
+    }
   }
   return new ItemInMemoryRepositoryStub()
 }

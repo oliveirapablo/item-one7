@@ -8,4 +8,5 @@ export interface AddItemRepository {
 export interface ItemInMemoryRepository{
   add (item: ItemModel): Promise<void>
   find (itemId: string): Promise<ItemModel>
+  delete (itemId: string): Promise<void>
 }

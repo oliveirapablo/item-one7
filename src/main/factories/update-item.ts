@@ -5,6 +5,6 @@ import { ItemRedisRepository } from '../../infra/db/redis/item-repository/add-it
 export const makeUpdateItem = (): UpdateItemController => {
   const itemMongoRepository = new ItemMongoRepository()
   const itemRedisRepository = new ItemRedisRepository()
-  const getItem = new DbUpdateItem(itemMongoRepository, itemRedisRepository)
-  return new UpdateItemController(getItem)
+  const updateItem = new DbUpdateItem(itemMongoRepository, itemRedisRepository)
+  return new UpdateItemController(updateItem)
 }
