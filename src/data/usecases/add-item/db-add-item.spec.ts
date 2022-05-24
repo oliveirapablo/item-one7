@@ -1,5 +1,6 @@
-import { ItemModel, AddItemModel, AddItemRepository } from './db-add-item-protocols'
+import { ItemModel, AddItemModel, AddItemRepository, ItemInMemoryRepository } from './db-add-item-protocols'
 import { DbAddItem } from './db-add-item'
+import { RedisHelper } from '../../../infra/db/redis/helpers/redis-helper'
 
 const makeFakeItem = (): ItemModel => ({
   itemId: 'valid_itemId',
@@ -29,18 +30,34 @@ const makeAddItemRepository = (): AddItemRepository => {
   return new AddItemRepositoryStub()
 }
 
+const makeItemInMemoryRepository = (): ItemInMemoryRepository => {
+  class ItemInMemoryRepositoryStub implements ItemInMemoryRepository {
+    async add (item: ItemModel): Promise<void> {
+      jest.spyOn(RedisHelper, 'setInMemory').mockImplementation()        
+    }
+    async find(itemId: string): Promise<ItemModel> {
+      return makeFakeItem()
+    }
+  }
+  return new ItemInMemoryRepositoryStub()
+}
+
 interface SutTypes {
   sut: DbAddItem
   addItemRepositoryStub: AddItemRepository
+  itemInMemoryRepository: ItemInMemoryRepository
 }
 
 const makeSut = (): SutTypes => {
   const addItemRepositoryStub = makeAddItemRepository()
-  const sut = new DbAddItem(addItemRepositoryStub)
+  const itemInMemoryRepository = makeItemInMemoryRepository()
+
+  const sut = new DbAddItem(addItemRepositoryStub, itemInMemoryRepository)
 
   return {
     sut,
-    addItemRepositoryStub
+    addItemRepositoryStub,
+    itemInMemoryRepository
   }
 }
 
@@ -62,9 +79,18 @@ describe('DbAddItem Usecase', () => {
     await expect(promise).rejects.toThrow('')
   })
 
-  test('Should an Item on success', async () => {
+  test('Should an Item In Memory on success', async () => {
     const { sut } = makeSut()
     const item = await sut.add(makeFakeItemData())
     expect(item).toEqual(makeFakeItem())
   })
+
+  test('Should throw if ItemInMemoryRepository throws', async () => {
+    const { sut, itemInMemoryRepository } = makeSut()
+    jest.spyOn(itemInMemoryRepository, 'add')
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    const promise = sut.add(makeFakeItemData())
+    await expect(promise).rejects.toThrow('')
+  })
+
 })
