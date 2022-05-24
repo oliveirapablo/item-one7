@@ -3,8 +3,6 @@ import { Request, Response } from 'express'
 
 export const adaptRoute = (controller: Controller) => {
   return async (req: Request, res: Response) => {
-    console.log(req.param)
-    console.log(req.params)
     const httpRequest: HttpRequest = {
       body: req.body,
       headers: req.headers,

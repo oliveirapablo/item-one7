@@ -1,5 +1,6 @@
 require('dotenv').config()
 import { MongoHelper } from '../infra/db/mongodb/helpers/mongo-helper'
+import { RedisHelper } from '../infra/db/redis/helpers/redis-helper'
 import env from './config/env'
 
 MongoHelper.connect(env.mongoUrl)
@@ -8,3 +9,7 @@ MongoHelper.connect(env.mongoUrl)
     app.listen(env.port, () => console.log(`Server running at http://localhost:${env.port}`))
   })
   .catch(console.error)
+
+  RedisHelper.connect(env.redisUrl, env.redisPassword).then(async () => {
+    console.log("Redis connected")
+  }).catch(console.error)
