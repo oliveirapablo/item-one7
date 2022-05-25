@@ -37,6 +37,10 @@ const makeUpdateItemRepository = (): AddItemRepository => {
     async update (itemData: AddItemModel): Promise<ItemModel> {
       return await new Promise(resolve => resolve(makeFakeItem()))
     }
+
+    async findAll (): Promise<ItemModel[]> {
+      return await new Promise(resolve => resolve([makeFakeItem()]))
+    }
   }
   return new AddItemRepositoryStub()
 }

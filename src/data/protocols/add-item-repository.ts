@@ -6,6 +6,7 @@ export interface AddItemRepository {
   add (item: AddItemModel): Promise<ItemModel>
   findById (item: GetItemModel): Promise<ItemModel>
   update (itemData: ItemModel): Promise<ItemModel>
+  findAll (): Promise<ItemModel[]>
 }
 
 export interface ItemInMemoryRepository{
