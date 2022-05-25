@@ -11,5 +11,5 @@ export default (router: Router): void => {
   router.get('/items/:itemId', adaptRoute(makeGetItem()))
   router.get('/items', adaptRoute(makeGetAllItems()))
   router.put('/items/:itemId', adaptRoute(makeUpdateItem()))
-  router.delete('/items/:itemId', adaptRoute(makeDeleteItem()))
+  router.delete('/items', adaptRoute(makeDeleteItem()))
 }

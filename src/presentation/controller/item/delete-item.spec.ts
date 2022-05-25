@@ -18,7 +18,7 @@ interface SutTypes {
 }
 
 const makeFakeRequest = (): HttpRequest => ({
-  params: {
+  body: {
     itemId: 'any_id',
   }
 })
@@ -33,11 +33,11 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DeleteItemController', () => {
-  test('Should return 400 if no quantity is provided', async () => {
+  test('Should return 400 if no itemId is provided', async () => {
     const { sut } = makeSut()
 
     const httpRequest = {
-      params: {
+      body: {
         itemId: undefined,
       }
     }

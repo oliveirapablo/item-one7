@@ -10,13 +10,13 @@ export class DeleteItemController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const requiredParamsFields = ['itemId',]
-        for (const field of requiredParamsFields) {
-          if (!httpRequest.params[field]) {
+      const requiredBodyFields = ['itemId',]
+        for (const field of requiredBodyFields) {
+          if (!httpRequest.body[field]) {
             return badRequest(new MissingParamError(field))
           }
         }
-      const { itemId } = httpRequest.params
+      const { itemId } = httpRequest.body
 
       await this.deleteItem.delete({
         itemId,

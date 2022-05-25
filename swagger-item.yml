@@ -1,0 +1,153 @@
+  swagger: "2.0"
+  info: 
+    version: "1.0.0"
+    title: "Microservices Item"
+  host: "localhost:3001"
+  paths: 
+    /v1/api/item/{itemId}: 
+     get: 
+        tags: 
+          - "Items"
+        summary: "Obtenha um Item."
+        parameters:
+          - 
+            name: "itemId"
+            in: "path"
+            description: "Insira o código do item que deseja buscar."
+            required: true
+            type: "string"
+            
+        responses: 
+          200: 
+            description: "Consulta realizada com sucesso."
+            schema:
+              $ref: '#/definitions/response200'
+          400: 
+            description: "Erro ao validar os campos, por favor revise os dados de acordo com a mensagem de erro."
+            schema: 
+              $ref: "#/definitions/error500"
+     put:
+        tags: 
+          - "Items"
+        summary: "Criar item."
+        description: "Criação de Item."
+        parameters:
+          - 
+            name: "itemId"
+            in: "path"
+            description: "Insira o código do item que deseja buscar."
+            required: true
+            type: "string"
+          -
+            in: "body"
+            name: "Item"
+            required: true
+            description: ""
+            schema:
+              $ref: '#/definitions/Item'
+        responses: 
+          200: 
+            description: "Consulta realizada com sucesso."
+            schema:
+              $ref: '#/definitions/response200'
+          500: 
+            description: "Erro ao validar os campos, por favor revise os dados de acordo com a mensagem de erro."
+            schema: 
+              $ref: "#/definitions/error500"
+    /v1/api/item: 
+      post: 
+        tags: 
+          - "Items"
+        summary: "Criar item."
+        description: "Criação de Item."
+        parameters:
+          -
+            in: "body"
+            name: "Item"
+            required: true
+            description: ""
+            schema:
+              $ref: '#/definitions/Item'
+        responses: 
+          200: 
+            description: "Consulta realizada com sucesso."
+            schema:
+              $ref: '#/definitions/response200'
+          400: 
+            description: "Erro ao validar os campos, por favor revise os dados de acordo com a mensagem de erro."
+            schema: 
+              $ref: "#/definitions/error500"
+      delete:
+        tags:
+          - "Items"
+        summary: "Delete um item."
+        description: "Delete um item"
+        parameters:
+          -
+            in: "body"
+            name: "Item"
+            required: true
+            description: ""
+            schema:
+              $ref: '#/definitions/DeleteItem'
+        responses:
+          204: 
+            description: "Item excluído com sucesso."
+  definitions:
+    Item:
+      type: "object"
+      properties:
+        name: 
+          type: "string"
+          example: "Frango Assado"
+        description: 
+          type: "string"
+          example: "Frango assado e farofa"
+        category:
+          type: "string"
+          example: "Assados"
+        quantity: 
+          type: "integer"
+          example: 20
+        unitaryValue:
+          type: "integer"
+          example: 19.90
+          
+    DeleteItem:
+      type: "object"
+      properties:
+        itemId: 
+          type: "string"
+          example: "asa131233432fewaf23234f"
+    response200:
+      type: "object"
+      properties:
+        itemId: 
+          type: "string"
+          example: "asa131233432fewaf23234f"
+        name: 
+          type: "string"
+          example: "Frango Assado"
+        description: 
+          type: "string"
+          example: "Frango assado e farofa"
+        category:
+          type: "string"
+          example: "Assados"
+        quantity: 
+          type: "integer"
+          example: 20
+        unitaryValue:
+          type: "integer"
+          example: 19.90
+    error500: 
+      type: "object"
+      properties: 
+        statusCode: 
+          type: "integer"
+          example: 500
+        error: 
+          type: "string"
+          example: "Internal Server Error"
+        
+

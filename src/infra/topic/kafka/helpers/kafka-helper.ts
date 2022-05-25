@@ -24,10 +24,13 @@ export const KafkaHelper = {
 
     await this.consumer.run({
       eachMessage: async ({ topic, partition, message}) => {
-        const itemParsed = (JSON.parse(message.value)) as UpdateItemTopicModel
-        const result = await updateItemTopicFactory.update(itemParsed)
-        console.log("Item updated from Topic")
-        console.log(result)
+        const itemsParsed = (JSON.parse(message.value.toString())) as UpdateItemTopicModel[]
+        
+        itemsParsed.forEach(async(item) => {
+          const result = await updateItemTopicFactory.update(item).catch(console.error)
+          console.log("Item updated from Topic")
+          console.log(result)
+        });
       }
     })
   }
